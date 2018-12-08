@@ -30,8 +30,8 @@ func arrayJoin(input []interface{}, glue string) string {
 
 // check if a value exists in array/slice/map does not support sub array
 // 在array/slice/map中寻找值 不支持子数组
-func ContainsValue(input interface{}, subitem interface{}) (bool, error) {
-	result, err := Slice(input)
+func ContainsValue(val interface{}, subitem interface{}) (bool, error) {
+	result, err := Slice(val)
 	if err != nil {
 		return false, err
 	}
@@ -46,6 +46,15 @@ func ContainsValue(input interface{}, subitem interface{}) (bool, error) {
 		}
 	}
 	return false, nil
+}
+
+// check if a value exists in array/slice/map, return def value in case error
+func MustContainsValue(val interface{}, subitem interface{}, def bool) bool {
+	r, err := ContainsValue(val, subitem)
+	if err != nil {
+		return def
+	}
+	return r
 }
 
 // check if a key exists in array/slice/map does not support sub array
@@ -79,4 +88,13 @@ func ContainsKey(val interface{}, subitem interface{}) (bool, error) {
 		}
 	}
 	return false, nil
+}
+
+// check if a key exists in array/slice/map, return def value in case error
+func MustContainsKey(val interface{}, subitem interface{}, def bool) bool {
+	r, err := ContainsKey(val, subitem)
+	if err != nil {
+		return def
+	}
+	return r
 }

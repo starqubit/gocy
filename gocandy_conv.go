@@ -330,6 +330,15 @@ func String(val interface{}) (string, error) {
 	}
 }
 
+// convert any value to string or return del value in case of error
+func MustString(val interface{}, def string) string {
+	r, err := String(val)
+	if err != nil {
+		return def
+	}
+	return r
+}
+
 // convert any value to []byte
 // Bytes 将 val 转换成 []byte 类型或是在无法转换的情况下返回 error。
 func Bytes(val interface{}) ([]byte, error) {
