@@ -195,14 +195,23 @@ func Int64(val interface{}) (int64, error) {
 		}
 		return -1, typeError(val, "int64")
 	case string:
-		val, err := strconv.ParseFloat(ret, 32)
+		val, err := strconv.ParseFloat(ret, 0)
 		if err == nil {
 			return int64(val), nil
 		}
+
 		return -1, typeError(val, "int64")
 	default:
 		return -1, typeError(ret, "int64")
 	}
+}
+
+func MustInt64(val interface{}, def int64) int64 {
+	r, err := Int64(val)
+	if err != nil {
+		return def
+	}
+	return r
 }
 
 // convert any value to int
@@ -213,6 +222,14 @@ func Int(val interface{}) (int, error) {
 		return -1, err
 	}
 	return int(ret), err
+}
+
+func MustInt(val interface{}, def int) int {
+	r, err := Int64(val)
+	if err != nil {
+		return def
+	}
+	return int(r)
 }
 
 // convert any value to int8
