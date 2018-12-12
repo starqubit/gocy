@@ -47,6 +47,14 @@ func Bool(val interface{}) (bool, error) {
 	}
 }
 
+func MustBool(val interface{}, def bool) bool {
+	r, err := Bool(val)
+	if err != nil {
+		return def
+	}
+	return r
+}
+
 // 字符串转 bool 值，供 Bool() 函数调用。
 // 添加了一些 strconv.ParseFloat 不支持但又比较常用的字符串转换
 func str2Bool(str string) (bool, error) {
@@ -129,6 +137,14 @@ func Uint64(val interface{}) (uint64, error) {
 	}
 }
 
+func MustUint64(val interface{}, def uint64) uint64 {
+	r, err := Uint64(val)
+	if err != nil {
+		return def
+	}
+	return r
+}
+
 // convert any value to uint
 // Uint 将 val 转换成 uint 类型或是在无法转换的情况下返回 error。
 func Uint(val interface{}) (uint, error) {
@@ -137,6 +153,14 @@ func Uint(val interface{}) (uint, error) {
 		return 0, err
 	}
 	return uint(ret), nil
+}
+
+func MustUint(val interface{}, def uint) uint {
+	r, err := Uint(val)
+	if err != nil {
+		return def
+	}
+	return r
 }
 
 // convert any value to uint8
@@ -149,6 +173,14 @@ func Uint8(val interface{}) (uint8, error) {
 	return uint8(ret), nil
 }
 
+func MustUint8(val interface{}, def uint8) uint8 {
+	r, err := Uint8(val)
+	if err != nil {
+		return def
+	}
+	return r
+}
+
 // convert any value to uint32
 // Uint32 将 val 转换成 uint32 类型或是在无法转换的情况下返回 error。
 func Uint32(val interface{}) (uint32, error) {
@@ -157,6 +189,14 @@ func Uint32(val interface{}) (uint32, error) {
 		return 0, err
 	}
 	return uint32(ret), nil
+}
+
+func MustUint32(val interface{}, def uint32) uint32 {
+	r, err := Uint32(val)
+	if err != nil {
+		return def
+	}
+	return r
 }
 
 // convert any value to int64
@@ -242,6 +282,14 @@ func Int8(val interface{}) (int8, error) {
 	return int8(ret), err
 }
 
+func MustInt8(val interface{}, def int8) int8 {
+	r, err := Int8(val)
+	if err != nil {
+		return def
+	}
+	return r
+}
+
 // convert any value to int32
 // Int32 将 val 转换成 int32 类型或是在无法转换的情况下返回 error。
 func Int32(val interface{}) (int32, error) {
@@ -250,6 +298,13 @@ func Int32(val interface{}) (int32, error) {
 		return -1, err
 	}
 	return int32(ret), err
+}
+func MustInt32(val interface{}, def int32) int32 {
+	r, err := Int32(val)
+	if err != nil {
+		return def
+	}
+	return r
 }
 
 // convert any value to float64
@@ -297,6 +352,13 @@ func Float64(val interface{}) (float64, error) {
 		return -1, typeError(ret, "float64")
 	}
 }
+func MustFloat64(val interface{}, def float64) float64 {
+	r, err := Float64(val)
+	if err != nil {
+		return def
+	}
+	return r
+}
 
 // convert any value to float32
 // Float32 将 val 转换成 float32 类型或是在无法转换的情况下返回 error。
@@ -306,6 +368,13 @@ func Float32(val interface{}) (float32, error) {
 		return -1.0, err
 	}
 	return float32(ret), nil
+}
+func MustFloat32(val interface{}, def float32) float32 {
+	r, err := Float32(val)
+	if err != nil {
+		return def
+	}
+	return r
 }
 
 // convert any value to a string
@@ -390,7 +459,13 @@ func Bytes(val interface{}) ([]byte, error) {
 		return nil, typeError(ret, "[]byte")
 	}
 }
-
+func MustBytes(val interface{}, def []byte) []byte {
+	r, err := Bytes(val)
+	if err != nil {
+		return def
+	}
+	return r
+}
 func Slice(val interface{}) ([]interface{}, error) {
 	v := reflect.ValueOf(val)
 	switch v.Kind() {
@@ -486,4 +561,11 @@ func Slice(val interface{}) ([]interface{}, error) {
 		}
 	}
 	return nil, nil
+}
+func MustSlice(val interface{}, def interface{}) interface{} {
+	r, err := Slice(val)
+	if err != nil {
+		return def
+	}
+	return r
 }
