@@ -29,3 +29,15 @@ func GetFileParam(path string, codec_type string) gjson.Result {
 	}
 	return j
 }
+
+// 调用ffmpeg执行命令并返回结果 依赖ffmpeg
+func FFExec(args ...string) (gjson.Result, error) {
+	cmd := exec.Command("ffmpeg", args...)
+	b, err := cmd.CombinedOutput()
+	if err != nil {
+		log.Println(string(b))
+		log.Println(cmd)
+		return gjson.Result{}, err
+	}
+	return gjson.Parse(string(b)), nil
+}

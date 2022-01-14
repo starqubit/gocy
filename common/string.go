@@ -4,7 +4,6 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"strings"
-	"time"
 )
 
 // 获取数据md5的hex编码
@@ -37,9 +36,4 @@ func IsNullOrEmpty(str string) bool {
 	str = TrimAllSpace(str)
 	str = TrimEnter(str)
 	return str == ""
-}
-
-// 格式化事件为标准的字符串
-func FormatTimeStr(t time.Time) string {
-	return t.Format("2006-01-02 15:04:05")
 }

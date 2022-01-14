@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"regexp"
 )
 
 // 剪切文件
@@ -132,4 +133,10 @@ func Unzip(zipFile string, destDir string) error {
 		}
 	}
 	return nil
+}
+
+// 获取纯净文件名 用于保存到磁盘本地
+func PureFilename(name string) string {
+	reg := regexp.MustCompile(`[/|?|*|:|\||\\|<|>|&|#|@|$|(|)|;|'|"|%]+`)
+	return reg.ReplaceAllString(name, "")
 }

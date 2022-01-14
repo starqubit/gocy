@@ -45,7 +45,7 @@ func (fs *FileStat) GetAccessTime() int64 {
 	return winFileAttr.LastAccessTime.Nanoseconds() / 1e9
 }
 
-// 获取文件的访问时间, 返回时间戳
+// 获取文件的创建时间, 返回时间戳
 func (fs *FileStat) GetCreateTime() int64 {
 	winFileAttr := fs.FileInfo.Sys().(*syscall.Win32FileAttributeData)
 	return winFileAttr.CreationTime.Nanoseconds() / 1e9
