@@ -140,3 +140,12 @@ func PureFilename(name string) string {
 	reg := regexp.MustCompile(`[/|?|*|:|\||\\|<|>|&|#|@|$|(|)|;|'|"|%]+`)
 	return reg.ReplaceAllString(name, "")
 }
+
+// 异或加密
+func Xor(data, key []byte) []byte {
+	var result []byte
+	for i := 0; i < len(data); i++ {
+		result = append(result, data[i]^key[0])
+	}
+	return result
+}
