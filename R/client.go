@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"os"
 	"runtime"
 	"time"
 
@@ -95,6 +96,7 @@ func (s *server) Output(level, flagId string, calldeep int, text string) {
 		Weights:   1,
 		Name:      s.name,
 		FlagId:    flagId,
+		HostName:  os.Getenv("HOSTNAME"),
 	}
 	go func() {
 		select {
