@@ -22,6 +22,8 @@ type Message struct {
 	Weights   int    `json:"weights"`   //权重
 	FlagId    string `json:"flagid"`    //标记id
 	Name      string `json:"name"`      //程序名
+	HostName  string `json:"hostname"`  //host name
+	RemoteIP  string `json:"remoteip"`  //remote ip
 }
 
 // 格式化为打印的字符串
