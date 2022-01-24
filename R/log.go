@@ -23,7 +23,7 @@ func Info(v ...interface{}) {
 
 }
 
-func Waring(v ...interface{}) {
+func Warning(v ...interface{}) {
 	text := fmt.Sprint(v...)
 	log.Output(2, text)
 	r.Output("WARNING", "default", 1, text)
