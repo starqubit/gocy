@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+// 测试当前计算机C盘磁盘使用状况
 func TestDisk(t *testing.T) {
 	sTime := time.Now().UnixNano()
 	available, free, total, err := DiskUsage("C:")

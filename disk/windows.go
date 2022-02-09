@@ -1,3 +1,4 @@
+//go:build windows
 // +build windows
 
 package disk
@@ -7,6 +8,10 @@ import (
 	"unsafe"
 )
 
+/*
+// 获取路径usagePath的磁盘使用状态
+return: 可用空间，剩余空间，总空间
+*/
 func getUsage(usagePath string) (int64, int64, int64, error) {
 	kernel32, err := syscall.LoadLibrary("Kernel32.dll")
 	if err != nil {
