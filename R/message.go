@@ -11,19 +11,20 @@ import (
 */
 
 type Message struct {
-	Timestamp int64  `json:"timestamp"` //时间戳，精确到纳秒 时间戳*10^9
-	Datetime  string `json:"datetime"`  //日期
-	Levelname string `json:"levelname"` //等级
-	Filename  string `json:"filename"`  //文件名
-	Lineno    int    `json:"lineno"`    //行号
-	Thread    int    `json:"thread"`    //线程号
-	Text      string `json:"text"`      //内容
-	Type      int    `json:"type"`      //类型
-	Weights   int    `json:"weights"`   //权重
-	FlagId    string `json:"flagid"`    //标记id
-	Name      string `json:"name"`      //程序名
-	HostName  string `json:"hostname"`  //host name
-	RemoteIP  string `json:"remoteip"`  //remote ip
+	Timestamp int64                  `json:"timestamp"` //时间戳，精确到纳秒 时间戳*10^9
+	Datetime  string                 `json:"datetime"`  //日期
+	Levelname string                 `json:"levelname"` //等级
+	Filename  string                 `json:"filename"`  //文件名
+	Lineno    int                    `json:"lineno"`    //行号
+	Thread    int                    `json:"thread"`    //线程号
+	Text      string                 `json:"text"`      //内容
+	Type      int                    `json:"type"`      //类型
+	Weights   int                    `json:"weights"`   //权重
+	FlagId    string                 `json:"flagid"`    //标记id
+	Name      string                 `json:"name"`      //程序名
+	HostName  string                 `json:"hostname"`  //host name
+	RemoteIP  string                 `json:"remoteip"`  //remote ip
+	Options   map[string]interface{} `json:"options"`   //remote ip
 }
 
 // 格式化为打印的字符串
