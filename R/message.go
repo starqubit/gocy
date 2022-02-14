@@ -24,7 +24,7 @@ type Message struct {
 	Name      string                 `json:"name"`      //程序名
 	HostName  string                 `json:"hostname"`  //host name
 	RemoteIP  string                 `json:"remoteip"`  //remote ip
-	Options   map[string]interface{} `json:"options"`   //remote ip
+	Options   map[string]interface{} `json:"options"`   //额外参数
 }
 
 // 格式化为打印的字符串
