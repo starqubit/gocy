@@ -1,6 +1,7 @@
 package R
 
 import (
+	"encoding/json"
 	"log"
 	"testing"
 	"time"
@@ -14,4 +15,21 @@ func TestR(t *testing.T) {
 		time.Sleep(time.Second * 2)
 	}
 	time.Sleep(time.Second * 10)
+}
+
+func TestMessage(t *testing.T) {
+	log.SetFlags(log.Lshortfile | log.LstdFlags)
+	m := Message{
+		Name: "test",
+		Options: map[string]interface{}{
+			"dddd":  1,
+			"dfdfd": "test",
+		},
+	}
+	b, e := json.Marshal(m)
+	if e != nil {
+		log.Println(e)
+		return
+	}
+	t.Log(string(b))
 }

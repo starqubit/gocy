@@ -50,8 +50,15 @@ func Notice(flagId string, text string) {
 	r.Output("NOTICE", flagId, 1, text)
 }
 
-// flagId 长度不超过32
-func Email(flagId string, text string) {
+/*
+// 调用Email将会立即邮件提醒，
+// sleep>0 同样的邮件(sleepkey相同)发送过将不会再次发送
+// flagId 可能是某个文章id 、句子id、视频id等任何发生异常的数据id方便定位
+*/
+func Email(sleep int, sleepkey, flagId, text string) {
 	log.Output(2, text)
-	r.Output("EMAIL", flagId, 1, text)
+	r.Output("EMAIL", flagId, 1, text, map[string]interface{}{
+		"sleep":    sleep,
+		"sleepkey": sleepkey,
+	})
 }

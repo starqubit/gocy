@@ -97,7 +97,7 @@ func (s *server) post(m Message) {
 }
 
 // 向缓存添加数据
-func (s *server) Output(level, flagId string, calldeep int, text string) {
+func (s *server) Output(level, flagId string, calldeep int, text string, options ...map[string]interface{}) {
 	if r == nil {
 		return
 	}
@@ -110,6 +110,10 @@ func (s *server) Output(level, flagId string, calldeep int, text string) {
 	if err != nil || hostname == "" {
 		hostname = os.Getenv("HOSTNAME")
 	}
+	extra := make(map[string]interface{})
+	if len(options) > 0 {
+		extra = options[0]
+	}
 	m := Message{
 		Timestamp: time.Now().UnixNano(),
 		Levelname: level,
@@ -120,6 +124,7 @@ func (s *server) Output(level, flagId string, calldeep int, text string) {
 		Name:      s.name,
 		FlagId:    flagId,
 		HostName:  hostname,
+		Options:   extra,
 	}
 	go func() {
 		select {
