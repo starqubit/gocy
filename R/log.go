@@ -44,6 +44,19 @@ func Fatal(v ...interface{}) {
 
 }
 
+/*
+// 调用Email将会立即邮件提醒，
+// sleep>0 同样的邮件(sleepkey相同)发送过将不会再次发送
+// flagId 可能是某个文章id 、句子id、视频id等任何发生异常的数据id方便定位
+*/
+func FatalSendEmail(sleep int, sleepkey, flagId, text string) {
+	log.Output(2, text)
+	r.Output("FatalSendEmail", flagId, 1, text, map[string]interface{}{
+		"sleep":    sleep,
+		"sleepkey": sleepkey,
+	})
+}
+
 // flagId 长度不超过32
 func Notice(flagId string, text string) {
 	log.Output(2, text)
