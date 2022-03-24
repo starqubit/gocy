@@ -64,6 +64,10 @@ func (s *server) start() {
 
 // 上报信息
 func (s *server) post(m Message) {
+	if s.url == "" {
+		// 0000311: gocy 未定义远程日志服务端的情况下跳过
+		return
+	}
 	b, e := json.Marshal(m)
 	if e != nil {
 		log.Println(e)
