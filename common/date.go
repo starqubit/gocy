@@ -123,7 +123,6 @@ func DateMonth2Time(strDate string) (time.Time, error) {
 	if len(results) == 0 {
 		return tTime, errors.New("匹配失败")
 	}
-	log.Println(results)
 	strMonth := results[0][2]
 	nMonth, err := strconv.Atoi(strMonth)
 	if err != nil {
