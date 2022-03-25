@@ -26,12 +26,12 @@ func Str2Time(strDate string) time.Time {
 		return t
 	}
 	log.Println("不支持的时间格式", strDate)
-	return time.Date(1970, 1, 1, 0, 0, 0, 0, time.Now().Location())
+	return time.Date(1971, 1, 1, 1, 1, 1, 1, time.Now().Location())
 }
 
 // 日期转时间 6小时前
 func BeforeHouse2Time(strDate string) (time.Time, error) {
-	tTime := time.Date(1970, 1, 1, 0, 0, 0, 0, time.Now().Location())
+	tTime := time.Time{}
 	re, err := regexp.Compile(`^(\d{1,2})小时前$`)
 	if err != nil {
 		return tTime, err
@@ -52,7 +52,7 @@ func BeforeHouse2Time(strDate string) (time.Time, error) {
 
 // 日期转时间 2天前
 func BeforeDay2Time(strDate string) (time.Time, error) {
-	tTime := time.Date(1970, 1, 1, 0, 0, 0, 0, time.Now().Location())
+	tTime := time.Time{}
 	re, err := regexp.Compile(`^(\d{1,4})天前$`)
 	if err != nil {
 		return tTime, err
@@ -73,7 +73,7 @@ func BeforeDay2Time(strDate string) (time.Time, error) {
 
 // 日期转时间 昨天
 func Yesterday2Time(strDate string) (time.Time, error) {
-	if strDate == "昨天" {
+	if strDate != "昨天" {
 		return time.Time{}, errors.New("匹配失败")
 	}
 	dstTime := time.Now().AddDate(0, 0, -1)
@@ -82,7 +82,7 @@ func Yesterday2Time(strDate string) (time.Time, error) {
 
 // 日期转时间 2021年12月31日
 func DateYear2Time(strDate string) (time.Time, error) {
-	tTime := time.Date(1970, 1, 1, 0, 0, 0, 0, time.Now().Location())
+	tTime := time.Time{}
 	re, err := regexp.Compile(`^(\d{4})年(\d{2})月(\d{2})日$`)
 	if err != nil {
 		return tTime, err
@@ -114,7 +114,7 @@ func DateYear2Time(strDate string) (time.Time, error) {
 
 // 日期转时间 12月31日
 func DateMonth2Time(strDate string) (time.Time, error) {
-	tTime := time.Date(1970, 1, 1, 0, 0, 0, 0, time.Now().Location())
+	tTime := time.Time{}
 	re, err := regexp.Compile(`^(\d{2})月(\d{2})日$`)
 	if err != nil {
 		return tTime, err
