@@ -102,7 +102,7 @@ func DateYear2Time(strDate string) (time.Time, error) {
 	if err != nil {
 		return tTime, err
 	}
-	strDay := results[0][2]
+	strDay := results[0][3]
 	nDay, err := strconv.Atoi(strDay)
 	if err != nil {
 		return tTime, err
@@ -123,7 +123,7 @@ func DateMonth2Time(strDate string) (time.Time, error) {
 	if len(results) == 0 {
 		return tTime, errors.New("匹配失败")
 	}
-	strMonth := results[0][2]
+	strMonth := results[0][1]
 	nMonth, err := strconv.Atoi(strMonth)
 	if err != nil {
 		return tTime, err
