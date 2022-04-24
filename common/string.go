@@ -56,7 +56,7 @@ func Sm3Hex(buf []byte) string {
 	return hex.EncodeToString(s)
 }
 
-// 生成随机数
+// 生成随机字符串
 func RandomString(n int, allowedChars ...[]rune) string {
 	var letters []rune
 	if len(allowedChars) == 0 {
