@@ -4,7 +4,9 @@ import (
 	"crypto/md5"
 	"crypto/sha1"
 	"encoding/hex"
+	"math/rand"
 	"strings"
+	"time"
 
 	"github.com/starqubit/gocy/common/sm"
 )
@@ -52,4 +54,20 @@ func Sha1Hex(buf []byte) string {
 func Sm3Hex(buf []byte) string {
 	s := sm.Sm3Sum(buf)
 	return hex.EncodeToString(s)
+}
+
+// 生成随机字符串
+func RandomString(n int, allowedChars ...[]rune) string {
+	var letters []rune
+	if len(allowedChars) == 0 {
+		letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+	} else {
+		letters = allowedChars[0]
+	}
+	b := make([]rune, n)
+	for i := range b {
+		rand.Seed(time.Now().UTC().UnixNano() + int64(i<<20))
+		b[i] = letters[rand.Intn(len(letters))]
+	}
+	return string(b)
 }
