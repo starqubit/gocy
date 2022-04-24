@@ -2,8 +2,11 @@ package common
 
 import (
 	"crypto/md5"
+	"crypto/sha1"
 	"encoding/hex"
 	"strings"
+
+	"github.com/starqubit/gocy/common/sm"
 )
 
 // 获取数据md5的hex编码
@@ -36,4 +39,17 @@ func IsNullOrEmpty(str string) bool {
 	str = TrimAllSpace(str)
 	str = TrimEnter(str)
 	return str == ""
+}
+
+// sha1 hex
+func Sha1Hex(buf []byte) string {
+	m := sha1.New()
+	m.Write(buf)
+	return hex.EncodeToString(m.Sum(nil))
+}
+
+// sm3 hex
+func Sm3Hex(buf []byte) string {
+	s := sm.Sm3Sum(buf)
+	return hex.EncodeToString(s)
 }
