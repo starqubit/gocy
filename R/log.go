@@ -75,3 +75,13 @@ func Email(sleep int, sleepkey, flagId, text string) {
 		"sleepkey": sleepkey,
 	})
 }
+
+// 自定义报告，服务端自动忽略该接口反馈，除非在服务端存在匹配的自定义处理器
+func ReportCustom(level string, v ...interface{}) {
+	if len(v) < 1 {
+		return
+	}
+	text := fmt.Sprint(v...)
+	log.Output(2, text)
+	r.Output(level, "default", 1, text)
+}
