@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/go-resty/resty/v2"
+	"github.com/starqubit/gocy/common/aes256"
 )
 
 /*
@@ -18,22 +19,28 @@ import (
 var r *server
 
 type server struct {
-	cache   chan Message
-	retry   chan Message //异常需要重试的队列
-	url     string
-	name    string
-	errTime time.Time //异常时间
+	cache      chan Message
+	retry      chan Message //异常需要重试的队列
+	url        string
+	name       string
+	errTime    time.Time //异常时间
+	passphrase string
 }
 
 // 初始化服务
-func InitServer(name, url string) {
+func InitServer(name, url string, options ...map[string]string) {
+	var passphrase string
+	if len(options) > 0 {
+		passphrase = options[0]["passphrase"]
+	}
 	if r == nil {
 		r = &server{
-			name:    name,
-			url:     url,
-			cache:   make(chan Message, 999999),
-			retry:   make(chan Message, 999999),
-			errTime: time.Now(),
+			name:       name,
+			url:        url,
+			cache:      make(chan Message, 999999),
+			retry:      make(chan Message, 999999),
+			errTime:    time.Now(),
+			passphrase: passphrase,
 		}
 		go r.start()
 	}
@@ -87,9 +94,13 @@ func (s *server) post(m Message) {
 			}()
 		}
 	}()
+	var data string = string(b)
+	if s.passphrase != "" {
+		data = aes256.Encrypt(data, s.passphrase)
+	}
 	client := resty.New()
 	resp, err := client.R().SetFormData(map[string]string{
-		"data": string(b),
+		"data": data,
 	}).Post(s.url)
 	if err != nil {
 		return
