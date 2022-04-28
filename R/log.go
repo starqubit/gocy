@@ -76,12 +76,12 @@ func Email(sleep int, sleepkey, flagId, text string) {
 	})
 }
 
-// 自定义报告，服务端自动忽略该接口反馈，除非在服务端存在匹配的自定义处理器
-func ReportCustom(level string, v ...interface{}) {
+// 自定义报告，服务端自动忽略level白名单外的接口反馈，除非在服务端存在匹配的自定义处理器
+func ReportCustom(level string, flagId string, calldeep int, v ...interface{}) {
 	if len(v) < 1 {
 		return
 	}
 	text := fmt.Sprint(v...)
-	log.Output(2, text)
-	r.Output(level, "default", 1, text)
+	log.Output(calldeep+1, text)
+	r.Output(level, flagId, calldeep, text)
 }

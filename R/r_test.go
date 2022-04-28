@@ -17,6 +17,16 @@ func TestR(t *testing.T) {
 	time.Sleep(time.Second * 10)
 }
 
+func TestReportCustom(t *testing.T) {
+	log.SetFlags(log.Lshortfile | log.LstdFlags)
+	InitServer("R_test", "http://127.0.0.1:29721/report?token=123sdffd6t536")
+	for i := 0; i < 2; i++ {
+		ReportCustom("DEBUG222", "default", 1, "ddddd")
+		time.Sleep(time.Second * 2)
+	}
+	time.Sleep(time.Second * 3)
+}
+
 func TestMessage(t *testing.T) {
 	log.SetFlags(log.Lshortfile | log.LstdFlags)
 	m := Message{
