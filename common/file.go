@@ -9,6 +9,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"strings"
 )
 
 // 剪切文件
@@ -148,4 +149,38 @@ func Xor(data, key []byte) []byte {
 		result = append(result, data[i]^key[0])
 	}
 	return result
+}
+
+// 遍历文件
+func GetAllFile(pathname string, whiteExt ...string) ([]string, error) {
+	filePaths := make([]string, 0)
+	rd, err := ioutil.ReadDir(pathname)
+	if err != nil {
+		return filePaths, err
+	}
+	for _, fi := range rd {
+		// 不是文件夹
+		if !fi.IsDir() {
+			// 过滤后缀
+			_ext := strings.ToLower(filepath.Ext(fi.Name()))
+
+			// 扫描白名单
+			for _, ext := range whiteExt {
+				if _ext == strings.ToLower(ext) {
+					// 白名单内的加入队列
+					filePaths = append(filePaths, filepath.Join(pathname, fi.Name()))
+					break
+				}
+			}
+			continue
+		}
+		// 文件夹
+		resp, err := GetAllFile(filepath.Join(pathname, fi.Name()), whiteExt...)
+		if err != nil {
+			return filePaths, err
+		}
+		filePaths = append(filePaths, resp...)
+
+	}
+	return filePaths, nil
 }
