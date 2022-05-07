@@ -21,7 +21,7 @@ func TestROutput(t *testing.T) {
 	log.SetFlags(log.Lshortfile | log.LstdFlags)
 	InitServer("R_test", "")
 	for i := 0; i < 5; i++ {
-		Output("DEBUG", "dddd", 1, "hhhhhahahaha")
+		Output("DEBUG", "dddd", 1, true, "hhhhhahahaha")
 		time.Sleep(time.Second * 1)
 	}
 }
