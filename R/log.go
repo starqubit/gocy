@@ -87,7 +87,9 @@ func ReportCustom(level string, flagId string, calldeep int, v ...interface{}) {
 }
 
 // 自定义Output 直接调用 calldeep=1
-func Output(level string, flagId string, calldeep int, text string, options ...map[string]interface{}) {
-	log.Output(calldeep+1, fmt.Sprintf("%s %s", level, text))
+func Output(level string, flagId string, calldeep int, isPrint bool, text string, options ...map[string]interface{}) {
+	if isPrint {
+		log.Output(calldeep+1, fmt.Sprintf("%s %s", level, text))
+	}
 	r.Output(level, flagId, calldeep, text, options...)
 }
