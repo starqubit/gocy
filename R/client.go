@@ -25,6 +25,7 @@ type server struct {
 	name       string
 	errTime    time.Time //异常时间
 	passphrase string
+	handler    string //自定义处理器，为空时候表示使用默认处理器
 }
 
 // 初始化服务
@@ -140,6 +141,7 @@ func (s *server) Output(level, flagId string, calldeep int, text string, options
 		FlagId:    flagId,
 		HostName:  hostname,
 		Options:   extra,
+		Handler:   s.handler,
 	}
 	go func() {
 		select {
@@ -149,4 +151,9 @@ func (s *server) Output(level, flagId string, calldeep int, text string, options
 		}
 	}()
 
+}
+
+// 设置处理器
+func (s *server) SetHandler(handler string) {
+	s.handler = handler
 }
