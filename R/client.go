@@ -31,9 +31,12 @@ type server struct {
 // 初始化服务
 func InitServer(name, url string, options ...map[string]string) {
 	var passphrase string
+	var handler string
 	if len(options) > 0 {
 		passphrase = options[0]["passphrase"]
+		handler = options[0]["handler"]
 	}
+
 	if r == nil {
 		r = &server{
 			name:       name,
@@ -43,6 +46,7 @@ func InitServer(name, url string, options ...map[string]string) {
 			errTime:    time.Now(),
 			passphrase: passphrase,
 		}
+		r.SetHandler(handler)
 		go r.start()
 	}
 }
