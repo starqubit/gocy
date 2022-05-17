@@ -47,14 +47,20 @@ func Fatal(v ...interface{}) {
 /*
 // 调用Email将会立即邮件提醒，
 // sleep>0 同样的邮件(sleepkey相同)发送过将不会再次发送
-// flagId 可能是某个文章id 、句子id、视频id等任何发生异常的数据id方便定位
+// flagId 可能是某个文章id 、句子id、视频id等任何发生异常的数据id方便定位，发送邮件时候为标题后缀
+// options 第1个参数为自定义接收邮件通知的地址，格式为逗号分割的邮件地址，如：1@qq.com,2@qq.com
 */
-func FatalSendEmail(sleep int, sleepkey, flagId, text string) {
+func FatalSendEmail(sleep int, sleepkey, flagId, text string, options ...string) {
 	log.Output(2, text)
-	r.Output("FatalSendEmail", flagId, 1, text, map[string]interface{}{
+
+	extraMap := map[string]interface{}{
 		"sleep":    sleep,
 		"sleepkey": sleepkey,
-	})
+	}
+	if len(options) > 0 {
+		extraMap["noticeEmail"] = options[0]
+	}
+	r.Output("FatalSendEmail", flagId, 1, text, extraMap)
 }
 
 // flagId 长度不超过32
