@@ -1,6 +1,6 @@
 package common
 
-// 计算两个字符串的相似度
+// 计算两个字符串的相似度 0~1.0
 func SimilarText(first, second string) float64 {
 	if first == second {
 		return 1
@@ -8,7 +8,7 @@ func SimilarText(first, second string) float64 {
 	l1, l2 := len(first), len(second)
 	sim := similarText(first, second, l1, l2)
 	percent := float64(sim*200) / float64(l1+l2)
-	return percent
+	return percent / 100.0
 }
 
 func similarText(str1, str2 string, len1, len2 int) int {
