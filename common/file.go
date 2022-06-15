@@ -3,7 +3,7 @@ package common
 import (
 	"archive/zip"
 	"crypto/md5"
-	"encoding/hex"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"os"
@@ -61,14 +61,19 @@ func Isfile(filename string) bool {
 }
 
 // 获取文件md5的hex编码
-func Md5FileHex(path string) string {
-	data, err := ioutil.ReadFile(path)
+func Md5FileHex(filePath string) string {
+	file, err := os.Open(filePath)
 	if err != nil {
 		return "00000000000000000000000000000000"
 	}
-	hash := md5.New()
-	hash.Write(data)
-	return hex.EncodeToString(hash.Sum(nil))
+	defer file.Close()
+
+	w := md5.New()
+	if _, err = io.Copy(w, file); err != nil {
+		return "00000000000000000000000000000000"
+	}
+	strMd5 := fmt.Sprintf("%x", w.Sum(nil))
+	return strMd5
 }
 
 // 文件文件或文件夹是否存在
