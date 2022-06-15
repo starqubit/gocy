@@ -1,6 +1,7 @@
 package common
 
 import (
+	"log"
 	"testing"
 	"time"
 )
@@ -27,4 +28,9 @@ func TestFileStat(t *testing.T) {
 	t.Log(fileInfo.GetCreateTime())
 	t.Log(fileInfo.GetWriteTime())
 	t.Log(fileInfo.GetAccessTime())
+}
+
+func TestHash(t *testing.T) {
+	filePath := `E:\video\1.mp4`
+	log.Println(Md5FileHex(filePath))
 }
