@@ -1,4 +1,4 @@
-package sm
+package sm3
 
 import (
 	"encoding/binary"
