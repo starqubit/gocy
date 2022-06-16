@@ -4,11 +4,13 @@ import (
 	"crypto/md5"
 	"crypto/sha1"
 	"encoding/hex"
+	"io"
 	"math/rand"
+	"os"
 	"strings"
 	"time"
 
-	"github.com/starqubit/gocy/common/sm"
+	"github.com/starqubit/gocy/common/sm/sm3"
 )
 
 // 获取数据md5的hex编码
@@ -50,10 +52,40 @@ func Sha1Hex(buf []byte) string {
 	return hex.EncodeToString(m.Sum(nil))
 }
 
+// file sha1 hex
+func Sha1FileHex(filePath string) string {
+	file, err := os.Open(filePath)
+	if err != nil {
+		return RandomString(40, []rune("0"))
+	}
+	defer file.Close()
+
+	w := sha1.New()
+	if _, err = io.Copy(w, file); err != nil {
+		return RandomString(40, []rune("0"))
+	}
+	return hex.EncodeToString(w.Sum(nil))
+}
+
 // sm3 hex
 func Sm3Hex(buf []byte) string {
-	s := sm.Sm3Sum(buf)
+	s := sm3.Sm3Sum(buf)
 	return hex.EncodeToString(s)
+}
+
+// file sm3 hex
+func Sm3FileHex(filePath string) string {
+	file, err := os.Open(filePath)
+	if err != nil {
+		return RandomString(64, []rune("0"))
+	}
+	defer file.Close()
+
+	w := sm3.New()
+	if _, err = io.Copy(w, file); err != nil {
+		return RandomString(64, []rune("0"))
+	}
+	return hex.EncodeToString(w.Sum(nil))
 }
 
 // 生成随机字符串
