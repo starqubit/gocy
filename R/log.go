@@ -11,35 +11,35 @@ import (
 
 func Debug(v ...interface{}) {
 	text := fmt.Sprint(v...)
-	log.Output(2, text)
+	log.Output(2, "[DEBUG] "+text)
 	r.Output("DEBUG", "default", 1, text)
 
 }
 
 func Info(v ...interface{}) {
 	text := fmt.Sprint(v...)
-	log.Output(2, text)
+	log.Output(2, "[INFO] "+text)
 	r.Output("INFO", "default", 1, text)
 
 }
 
 func Warning(v ...interface{}) {
 	text := fmt.Sprint(v...)
-	log.Output(2, text)
+	log.Output(2, "[WARNING] "+text)
 	r.Output("WARNING", "default", 1, text)
 
 }
 
 func Error(v ...interface{}) {
 	text := fmt.Sprint(v...)
-	log.Output(2, text)
+	log.Output(2, "[ERROR] "+text)
 	r.Output("ERROR", "default", 1, text)
 
 }
 
 func Fatal(v ...interface{}) {
 	text := fmt.Sprint(v...)
-	log.Output(2, text)
+	log.Output(2, "[FATAL] "+text)
 	r.Output("FATAL", "default", 1, text)
 
 }
@@ -51,7 +51,7 @@ func Fatal(v ...interface{}) {
 // options 第1个参数为自定义接收邮件通知的地址，格式为逗号分割的邮件地址，如：1@qq.com,2@qq.com
 */
 func FatalSendEmail(sleep int, sleepkey, flagId, text string, options ...string) {
-	log.Output(2, text)
+	log.Output(2, "[FatalSendEmail] "+text)
 
 	extraMap := map[string]interface{}{
 		"sleep":    sleep,
@@ -65,7 +65,7 @@ func FatalSendEmail(sleep int, sleepkey, flagId, text string, options ...string)
 
 // flagId 长度不超过32
 func Notice(flagId string, text string) {
-	log.Output(2, text)
+	log.Output(2, "[Notice] "+text)
 	r.Output("NOTICE", flagId, 1, text)
 }
 
@@ -75,7 +75,7 @@ func Notice(flagId string, text string) {
 // flagId 可能是某个文章id 、句子id、视频id等任何发生异常的数据id方便定位
 */
 func Email(sleep int, sleepkey, flagId, text string) {
-	log.Output(2, text)
+	log.Output(2, "[Email] "+text)
 	r.Output("EMAIL", flagId, 1, text, map[string]interface{}{
 		"sleep":    sleep,
 		"sleepkey": sleepkey,
@@ -88,7 +88,7 @@ func ReportCustom(level string, flagId string, calldeep int, v ...interface{}) {
 		return
 	}
 	text := fmt.Sprint(v...)
-	log.Output(calldeep+1, text)
+	log.Output(calldeep+1, "[ReportCustom] "+text)
 	r.Output(level, flagId, calldeep, text)
 }
 
